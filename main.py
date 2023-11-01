@@ -15,6 +15,6 @@ elif media == "LinkedIn":
 elif media == "TikTok":
     TikTokModule.LogInTikTok()
 elif media == "Reddit":
-    RedditModule.LogInTwitter()
+    RedditModule.LogInReddit()
 elif media == "Youtube":
     YoutubeModule.LogInYoutube()

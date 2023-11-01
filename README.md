@@ -18,4 +18,3 @@ Unfortunately, I wasn't able to get around Twitter, whose security features bloc
 
 The application supports 3 different browsers - Google Chrome, Mozilla Firefox and Microsoft Edge. Each is attached in incognito mode and maximises the browser window, accepts -- if necessary -- cookies and then proceeds to automatically fill in the form on the pages.
 
-<b>In the future, I will want to add tests created with PyTest to it, so it could be a good practice environment for me :).</b>

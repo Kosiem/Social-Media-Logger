@@ -13,7 +13,7 @@ url = passes[0]
 print(url)
 password = passes[2]
 
-def LogInTwitter():
+def LogInReddit():
 
     if ConfigHandling.CheckBrowser() == "Google Chrome":
         option = webdriver.ChromeOptions()
