@@ -7,12 +7,13 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as ec
 import ConfigHandling
 
+# Get passes from config file
 passes = ConfigHandling.getPasses("Reddit")
-username = passes[1]
 url = passes[0]
-print(url)
+username = passes[1]
 password = passes[2]
 
+# Function responsible for login, and opening browser in correct mode
 def LogInReddit():
 
     if ConfigHandling.CheckBrowser() == "Google Chrome":
@@ -31,16 +32,17 @@ def LogInReddit():
         option.add_argument("--insecure")
         driver = webdriver.Edge(options=option)
 
+    # Open and maximize browser
     driver.get(url)
     driver.maximize_window()
 
+    # Wait for login button to load and press it
     login_button = WebDriverWait(driver,10).until(ec.presence_of_element_located((By.XPATH, "//a[@href='https://www.reddit.com/login']")))
     login_button.click()
 
+    # Pass username, password and press enter to login
     user = WebDriverWait(driver, 10).until(ec.presence_of_element_located((By.XPATH, "//span[@slot='login-username']/input[@name='username']")))
     user.send_keys(username)
-
     driver.find_element(By.XPATH, "//span[@slot='login-password']/input[@name='password']").send_keys(password)
-
     keyboard = ActionChains(driver)
     keyboard.send_keys(Keys.ENTER).perform()

@@ -8,11 +8,14 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 import ConfigHandling
 
+# Get passes from config file
+
 passes = ConfigHandling.getPasses("Youtube")
-username = passes[1]
 url = passes[0]
-print(url)
+username = passes[1]
 password = passes[2]
+
+# Function responsible for login, and opening browser in correct mode
 def LogInYoutube():
 
     if ConfigHandling.CheckBrowser() == "Google Chrome":
@@ -31,27 +34,30 @@ def LogInYoutube():
         option.add_argument("--insecure")
         driver = webdriver.Edge(options=option)
 
+    # Open and maximize browser
     driver.get(url)
     driver.maximize_window()
+
+    # Wait for elements to be loaded and then move mouse to it
     mouse = ActionChains(driver)
     WebDriverWait(driver, 10).until(ec.presence_of_element_located((By.XPATH, "//button[@class='yt-spec-button-shape-next yt-spec-button-shape-next--filled yt-spec-button-shape-next--mono yt-spec-button-shape-next--size-m']")))
     mouse.move_to_element_with_offset(driver.find_element(By.XPATH, "//button[@class='yt-spec-button-shape-next yt-spec-button-shape-next--filled yt-spec-button-shape-next--mono yt-spec-button-shape-next--size-m']"), 150, 0).perform
     mouse.click().perform()
 
-
+    # Wait for elements to be loeaded
     WebDriverWait(driver, 10).until(ec.presence_of_element_located((By.XPATH, "//div[@class='yt-spec-touch-feedback-shape__fill']")))
     time.sleep(2)
+
+    # Click login button
     mouse.move_to_element(driver.find_element(By.XPATH, "//ytd-button-renderer[@id='sign-in-button']")).perform()
     mouse.click().perform()
 
+    # Enter email
     email = WebDriverWait(driver, 10).until(ec.presence_of_element_located((By.XPATH, "//input[@type='email' and @name='identifier']")))
     email.send_keys(username)
-
     keyboard = ActionChains(driver)
     keyboard.send_keys(Keys.ENTER).perform()
 
+    # Enter password
     password = WebDriverWait(driver, 10).until(ec.presence_of_element_located((By.XPATH, "//input[@type='password' and name='Passwd']")))
     password.send_keys(password)
-
-
-   # driver.find_element(By.XPATH, "//span[@jsname='V67aGc']").click()
